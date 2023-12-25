@@ -1,10 +1,18 @@
 // ApplicationsList.js
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useAppContext } from './useAppContext';
 
 const ApplicationsList = () => {
     const { applications, removeApplication } = useAppContext();
     const [selectedApplicationId, setSelectedApplicationId] = useState(null);
+    const activeElementRef = useRef(null);
+
+    // Ефект для підсвічування активного елемента при зміні selectedApplicationId
+    useEffect(() => {
+        if (activeElementRef.current) {
+            activeElementRef.current.focus();
+        }
+    }, [selectedApplicationId]);
 
     const formatDateTime = (timestamp) => {
         if (!timestamp) {
